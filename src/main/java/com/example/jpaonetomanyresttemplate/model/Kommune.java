@@ -13,8 +13,8 @@ public class Kommune {
     private String href;
 
     @ManyToOne
-    @JoinColumn(name = "region", referencedColumnName = "kode")
-    private Region region;
+    @JoinColumn( name = "region", referencedColumnName = "kode")
+    Region region;
 
     public String getKode() {
         return kode;

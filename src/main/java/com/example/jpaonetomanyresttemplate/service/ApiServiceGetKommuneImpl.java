@@ -18,31 +18,32 @@ import java.util.List;
 @Service
 public class ApiServiceGetKommuneImpl implements ApiServiceGetKommuner{
 
-    private final RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
-    public ApiServiceGetKommuneImpl(RestTemplate restTemplate) {
+    public ApiServiceGetKommuneImpl(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
 
-    String regionUrl = "https://api.dataforsyningen.dk/kommuner";
+    String kommuneUrl = "https://api.dataforsyningen.dk/kommuner";
 
     @Autowired
     KommuneRepository kommuneRepository;
 
-    private void saveKommune(List<Kommune> Kommune) {
-        kommuneRepository.saveAll(Kommune);
+    private void saveKommuner(List<Kommune> kommuner){
+        kommuner.forEach(kom -> kommuneRepository.save(kom));
     }
 
     @Override
     public List<Kommune> getKommuner() {
-        List<Kommune> lst = new ArrayList<>();
-        ResponseEntity<List<Kommune>> kommuneResponse = restTemplate.exchange(regionUrl,
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<Kommune>>() {
-                });
-        List<Kommune> Kommune = kommuneResponse.getBody();
-        saveKommune(Kommune);
 
-        return Kommune;
+        //pak response fra api ud
+        ResponseEntity<List<Kommune>> kommuneResponse =
+                restTemplate.exchange(kommuneUrl,
+                        HttpMethod.GET, null,
+                        new ParameterizedTypeReference<List<Kommune>>() {
+                        });
+        List<Kommune> kommuner = kommuneResponse.getBody();
+        saveKommuner(kommuner);
+        return kommuner;
     }
-
 }

@@ -18,6 +18,8 @@ public class ToolRestController {
 
     @Autowired
     ApiServiceGetRegioner apiServiceGetRegioner;
+
+    @Autowired
     ApiServiceGetKommuner apiServiceGetKommuner;
 
     @GetMapping("/getregioner")

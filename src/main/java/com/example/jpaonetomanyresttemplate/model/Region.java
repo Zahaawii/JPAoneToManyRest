@@ -16,7 +16,7 @@ public class Region {
     private String navn;
     private String href;
 
-    @OneToMany(mappedBy = "region")
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<Kommune> kommuner = new HashSet<>();
 
@@ -50,5 +50,15 @@ public class Region {
 
     public void setKommuner(Set<Kommune> kommuner) {
         this.kommuner = kommuner;
+    }
+
+    @Override
+    public String toString() {
+        return "Region{" +
+                "kode='" + kode + '\'' +
+                ", navn='" + navn + '\'' +
+                ", href='" + href + '\'' +
+                ", kommuner=" + kommuner +
+                '}';
     }
 }

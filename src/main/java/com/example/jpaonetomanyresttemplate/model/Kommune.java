@@ -47,4 +47,14 @@ public class Kommune {
     public void setRegion(Region region) {
         this.region = region;
     }
+
+    @Override
+    public String toString() {
+        return "Kommune{" +
+                "kode='" + kode + '\'' +
+                ", navn='" + navn + '\'' +
+                ", href='" + href + '\'' +
+                ", region=" + region +
+                '}';
+    }
 }

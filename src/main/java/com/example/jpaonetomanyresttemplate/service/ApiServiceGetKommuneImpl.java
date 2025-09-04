@@ -46,4 +46,5 @@ public class ApiServiceGetKommuneImpl implements ApiServiceGetKommuner{
         saveKommuner(kommuner);
         return kommuner;
     }
+
 }

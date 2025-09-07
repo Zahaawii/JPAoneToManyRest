@@ -5,7 +5,6 @@ import com.example.jpaonetomanyresttemplate.model.Kommune;
 import com.example.jpaonetomanyresttemplate.model.Region;
 import com.example.jpaonetomanyresttemplate.repository.KommuneRepository;
 import com.example.jpaonetomanyresttemplate.repository.RegionRepository;
-import com.example.jpaonetomanyresttemplate.service.ApiServiceGetKommuner;
 import com.example.jpaonetomanyresttemplate.service.ApiServiceGetRegioner;
 import com.example.jpaonetomanyresttemplate.service.ApiServiceGetRegionerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/tool")
@@ -26,7 +25,9 @@ public class ToolRestController {
     @Autowired
     RegionRepository repository;
     @Autowired
-    ApiServiceGetRegionerImpl regioner;
+    KommuneRepository regioner;
+    @Autowired
+    ApiServiceGetRegionerImpl impl;
 
 
     @GetMapping("/getregioner")
@@ -46,9 +47,16 @@ public class ToolRestController {
     }
 
     @GetMapping("/getkommunebyregion/{id}")
-    public List<String> getAllRegion(@PathVariable String id) {
-        List<String> lst = regioner.getKommuneByRegion(id);
+    public List<String> getAllRegionById(@PathVariable String id) {
+        List<String> lst = impl.getKommuneByRegion(id);
         return lst;
     }
+
+    @GetMapping("/jpql/{id}")
+    public List<String> getAllRegion(@PathVariable String id) {
+        List<String> test = regioner.findAllKommune(id);
+        return test;
+    }
+
 
 }
